@@ -3,7 +3,6 @@ with Input_Sources.File;
 with Adafeed;
 
 procedure Adafeed_Main is
-	package SR renames Sax.Readers;
 	package FI renames Input_Sources.File;
 	package AF renames Adafeed;
 

@@ -1,16 +1,17 @@
-with Sax.Readers;	use Sax.Readers;
+with Sax.Readers;
 with Unicode.CES;
 with Sax.Attributes;
+with Sax.Symbols;	use Sax.Symbols;
+with Sax.Utils;
 with Ada.Strings.Unbounded;
 with Ada.Text_IO;
 
 package body AdaFeed is
 	procedure Start_Element
 		(Handler	: in out Reader;
-		 Namespace_URI	: UC.Byte_Sequence := "";
-		 Local_Name	: UC.Byte_Sequence := "";
-		 Qname		: UC.Byte_Sequence := "";
-		 Atts		: Sax.Attributes.Attributes'Class)
+		 NS		: Sax.Utils.XML_NS;
+		 Local_Name	: Sax.Symbols.Symbol;
+		 Atts		: SR.Sax_Attribute_List)
 	is
 	begin
 		if Local_Name = "item" then
@@ -22,9 +23,8 @@ package body AdaFeed is
 
 	procedure End_Element
 		(Handler	: in out Reader;
-		 Namespace_URI	: UC.Byte_Sequence := "";
-		 Local_Name	: UC.Byte_Sequence := "";
-		 Qname		: UC.Byte_Sequence := "")
+		 NS		: Sax.Utils.XML_NS;
+		 Local_Name	: Sax.Symbols.Symbol)
 	is
 	begin
 		if Local_Name = "item" then
