@@ -13,8 +13,10 @@ package body AdaFeed is
 		 Atts		: Sax.Attributes.Attributes'Class)
 	is
 	begin
-		if Local_Name = "title" then
-			Handler.Current_Element := UB.To_Unbounded_String (Local_Name);
+		if Local_Name = "item" then
+			Handler.In_Item := True;
+		elsif Local_Name = "title" then
+			Handler.In_Title := True;
 		end if;
 	end Start_Element;
 
@@ -25,9 +27,13 @@ package body AdaFeed is
 		 Qname		: UC.Byte_Sequence := "")
 	is
 	begin
-		if UB."=" (Handler.Current_Element, "title") then
-			IO.Put_Line (Handler.Current_Value);
-			Handler.Current_Element := UB.Null_Unbounded_String;
+		if Local_Name = "item" then
+			Handler.In_Item := False;
+		elsif Local_Name = "title" then
+			if Handler.In_Item then
+				IO.Put_Line (Handler.Current_Value);
+			end if;
+			Handler.In_Title := False;
 			Handler.Current_Value := UB.Null_Unbounded_String;
 		end if;
 	end End_Element;
@@ -37,7 +43,7 @@ package body AdaFeed is
 		 Ch		: UC.Byte_Sequence)
 	is
 	begin
-		if UB."=" (Handler.Current_Element, "title") then
+		if Handler.In_Item and Handler.In_Title then
 			Handler.Current_Value := UB."&" (Handler.Current_Value, Ch);
 		end if;
 	end Characters;

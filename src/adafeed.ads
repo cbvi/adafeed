@@ -13,6 +13,8 @@ package AdaFeed is
 		Current_Pref	: UB.Unbounded_String;
 		Current_Value	: UB.Unbounded_String;
 		Current_Element	: UB.Unbounded_String;
+		In_Item		: Boolean := False;
+		In_Title	: Boolean := False;
 	end record;
 
 	procedure Start_Element
