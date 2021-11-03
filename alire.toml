@@ -1,0 +1,11 @@
+name = "adafeed"
+description = "Shiny new project"
+version = "0.0.0"
+
+authors = ["Carlin Bingham"]
+maintainers = ["Carlin Bingham <cb@viennan.net>"]
+maintainers-logins = ["cbvi"]
+
+executables = ["adafeed"]
+[[depends-on]]  # Added by alr
+xmlada = "^22.0.0"  # Added by alr
